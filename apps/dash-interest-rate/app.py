@@ -18,6 +18,8 @@ from sklearn import metrics
 
 from utils import *
 
+os.environ["REDIS_URL"] = os.getenv("REDIS_URL", os.getenv("EXTERNAL_REDIS_URL"))
+# os.environ['DATABASE_URL'] = os.getenv('DATABASE_URL', os.getenv('EXTERNAL_DATABASE_URL'))
 
 # Snowflake vars
 FLAKE_ACCOUNT = os.getenv("FLAKE_ACCOUNT")
@@ -64,7 +66,8 @@ loan_min //= loan_marks
 
 
 # Define app
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],)
+app.title = "Interest Rate Modeling"
 server = app.server
 cache = Cache(
     app.server,
